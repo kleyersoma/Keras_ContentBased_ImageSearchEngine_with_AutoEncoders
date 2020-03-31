@@ -6,6 +6,7 @@ from tensorflow.keras.layers import LeakyReLU
 from tensorflow.keras.layers import Activation
 from tensorflow.keras.layers import Flatten
 from tensorflow.keras.layers import Dense
+from tensorflow.keras.layers import Dropout
 from tensorflow.keras.layers import Reshape
 from tensorflow.keras.layers import Input
 from tensorflow.keras.models import Model
@@ -38,6 +39,7 @@ class ConvAutoEncoder:
 		# Flatten the network and then construct the Latent vector
 		volumeSize = K.int_shape(x)
 		x = Flatten()(x)
+		x = Dropout(rate=0.4)(x)
 		latent = Dense(latentDim, name="Encoded")(x)
 
 		# Start building the Decoder model which will accept the output of the Encoder as its inputs
