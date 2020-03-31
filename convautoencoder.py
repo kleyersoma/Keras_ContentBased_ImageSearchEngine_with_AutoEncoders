@@ -34,12 +34,11 @@ class ConvAutoEncoder:
 			# Apply a CONV -> RELU -> BN operation
 			x = Conv2D(f, (3, 3), strides=2, padding="same")(x)
 			x = LeakyReLU(alpha=0.1)(x)
-			x = BatchNormalization(axis=chanDim)(x)
+			#x = BatchNormalization(axis=chanDim)(x)
 
 		# Flatten the network and then construct the Latent vector
 		volumeSize = K.int_shape(x)
 		x = Flatten()(x)
-		x = Dropout(rate=0.4)(x)
 		latent = Dense(latentDim, name="Encoded")(x)
 
 		# Start building the Decoder model which will accept the output of the Encoder as its inputs
@@ -51,7 +50,7 @@ class ConvAutoEncoder:
 			# Apply a CONV_TRANSPOSE -> RELU -> BN operation
 			x = Conv2DTranspose(f, (3, 3), strides=2, padding="same")(x)
 			x = LeakyReLU(alpha=0.1)(x)
-			x = BatchNormalization(axis=chanDim)(x)
+			#x = BatchNormalization(axis=chanDim)(x)
 
 		# Apply a single CONV_TRANSPOSE layer used to recover the original depth of the image
 		x = Conv2DTranspose(depth, (3, 3), padding="same")(x)
