@@ -38,7 +38,7 @@ class ConvAutoEncoder:
 		# Flatten the network and then construct the Latent vector
 		volumeSize = K.int_shape(x)
 		x = Flatten()(x)
-		latent = Dense(latentDim, name="encoded")(x)
+		latent = Dense(latentDim, name="Encoded")(x)
 
 		# Start building the Decoder model which will accept the output of the Encoder as its inputs
 		x = Dense(np.prod(volumeSize[1:]))(latent)
@@ -53,10 +53,10 @@ class ConvAutoEncoder:
 
 		# Apply a single CONV_TRANSPOSE layer used to recover the original depth of the image
 		x = Conv2DTranspose(depth, (3, 3), padding="same")(x)
-		outputs = Activation("sigmoid", name="decoded")(x)
+		outputs = Activation("sigmoid", name="Decoded")(x)
 
 		# Construct the AutoEncoder Model
-		autoencoder = Model(inputs, outputs, name="autoencoder")
+		autoencoder = Model(inputs, outputs, name="AutoEncoder")
 
 		# Return the Autoencoder Model
 		return autoencoder
