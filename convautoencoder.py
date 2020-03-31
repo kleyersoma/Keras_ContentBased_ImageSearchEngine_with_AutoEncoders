@@ -32,7 +32,7 @@ class ConvAutoEncoder:
 		for f in filters:
 			# Apply a CONV -> RELU -> BN operation
 			x = Conv2D(f, (3, 3), strides=2, padding="same")(x)
-			x = LeakyReLU(alpha=0.2)(x)
+			x = LeakyReLU(alpha=0.1)(x)
 			x = BatchNormalization(axis=chanDim)(x)
 
 		# Flatten the network and then construct the Latent vector
@@ -48,7 +48,7 @@ class ConvAutoEncoder:
 		for f in filters[::-1]:
 			# Apply a CONV_TRANSPOSE -> RELU -> BN operation
 			x = Conv2DTranspose(f, (3, 3), strides=2, padding="same")(x)
-			x = LeakyReLU(alpha=0.2)(x)
+			x = LeakyReLU(alpha=0.1)(x)
 			x = BatchNormalization(axis=chanDim)(x)
 
 		# Apply a single CONV_TRANSPOSE layer used to recover the original depth of the image
